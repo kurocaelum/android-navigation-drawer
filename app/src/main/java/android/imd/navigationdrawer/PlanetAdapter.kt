@@ -40,7 +40,7 @@ class PlanetAdapter(): BaseAdapter() {
     }
 
     override fun getItem(p0: Int): Any {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return planets?.get(p0)!!
     }
 
     override fun getItemId(p0: Int): Long {
@@ -48,7 +48,7 @@ class PlanetAdapter(): BaseAdapter() {
     }
 
     override fun getCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return planets?.size!!
     }
 
     interface OnItemClickPlanetListener{
