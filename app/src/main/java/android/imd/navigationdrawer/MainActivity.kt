@@ -59,7 +59,20 @@ class MainActivity : AppCompatActivity(), PlanetAdapter.OnItemClickPlanetListene
         drawerToggle?.syncState()
     }
 
+    private fun selectItem(planet: Planet?){
+        if (planet != null){
+            this.planetSelected = planet
+            val fragment = PlanetFragment.newInstance(planet)   // Usando método ao invés de construtor
+            val transaction =  supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.content_frame, fragment)
+            transaction.commit()
+            setTitle(planet.name)
+        }
+
+        drawer_layout.closeDrawer(left_drawer!!)
+    }
+
     override fun onClick(planet: Planet) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        selectItem(planet)
     }
 }
