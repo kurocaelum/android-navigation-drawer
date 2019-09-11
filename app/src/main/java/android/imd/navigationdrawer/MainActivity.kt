@@ -1,7 +1,10 @@
 package android.imd.navigationdrawer
 
+import android.app.SearchManager
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -50,7 +53,31 @@ class MainActivity : AppCompatActivity(), PlanetAdapter.OnItemClickPlanetListene
             return true
         }
 
+        if (item.itemId == R.id.actionSearch){
+            var intent = Intent(Intent.ACTION_WEB_SEARCH)
+            intent.putExtra(SearchManager.QUERY, "Planeta: " + planetSelected?.name)
+
+            startActivity(intent)
+
+            return true
+        }
+
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search, menu)
+
+
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        var drawerOpen = drawer_layout.isDrawerOpen(left_drawer)
+        var searchMenu: MenuItem = menu?.findItem(R.id.actionSearch)!!
+        searchMenu.isVisible = !drawerOpen && planetSelected != null
+
+        return super.onPrepareOptionsMenu(menu)
     }
 
     // "Avisar" que clicou no botão
